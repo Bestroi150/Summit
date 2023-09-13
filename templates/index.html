@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Form</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f2f2f2;
+        color: #333333;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      input[type="text"], select, input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        float: right;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      .field-wrapper {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      .field-name {
+        width: 30%;
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 20px;
+        align-self: center;
+      }
+      .field-value {
+        flex-grow: 1;
+        font-size: 16px;
+      }
+          /* Navbar */
+    .navbar {
+      background-color: #333333;
+      overflow: hidden;
+      font-size: 18px;
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .active {
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a class="active" href="#">User Form</a>
+    <a href="/view">View</a>
+    <a href="/open">Open</a>   
+    <a href="/edit">Edit</a>   
+  </div>  
+    <h1>User Form</h1>
+    <form method="POST" action="/submit">
+      <label for="filename">Filename:</label>
+      <input type="text" id="filename" name="filename" required><br>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    
+      <label for="surname">Surname:</label>
+      <input type="text" id="surname" name="surname" required>
+    
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+    
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="">--Please select--</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    
+      <div id="extra-fields">
+        <div class="field-wrapper">
+          <input type="text" class="field-name" name="field_name[]" placeholder="Field name">
+          <input type="text" class="field-value" name="field_value[]" placeholder="Field value">
+        </div>
+      </div>
+    
+      <!--<button type="button" onclick="addField()">Add field</button>-->
+      <button type="button" onclick="addField()" style="background-color: #4CAF50; border: none; color: white; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 50%;"><b>+</b></button>
+
+
+<div id="extra-fields">
+  <div class="field-wrapper">
+    <input type="text" class="field-name" name="field_name[]" placeholder="Field name">
+    <input type="text" class="field-value" name="field_value[]" placeholder="Field value">
+  </div>
+</div>
+
+
+<button type="button" style="background-color: #4CAF50; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; float: left;" onclick="window.location.href='/download/'+document.getElementById('filename').value">Download XML</button>
+
+
+<button type="submit" style="background-color: #4CAF50; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; float: right;">
+  Save to XML
+</button>
+
+<script>
+  function addField() {
+    var wrapper = document.getElementById('extra-fields');
+    var fieldWrapper = document.createElement('div');
+    fieldWrapper.classList.add('field-wrapper');
+    var fieldName = document.createElement('input');
+    fieldName.type = 'text';
+    fieldName.classList.add('field-name');
+    fieldName.name = 'field_name[]';
+    fieldName.placeholder = 'Field name';
+    fieldWrapper.appendChild(fieldName);
+    var fieldValue = document.createElement('input');
+    fieldValue.type = 'text';
+    fieldValue.classList.add('field-value');
+    fieldValue.name = 'field_value[]';
+    fieldValue.placeholder = 'Field value';
+    fieldWrapper.appendChild(fieldValue);
+    wrapper.appendChild(fieldWrapper);
+  }
+</script>
+</body>
+</html>
