@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Data</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f2f2f2;
+        color: #333333;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      input[type="file"] {
+        margin-bottom: 20px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        float: right;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      /* Navbar */
+      .navbar {
+        background-color: #333333;
+        overflow: hidden;
+        font-size: 18px;
+      }
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      .active {
+        background-color: #4CAF50;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label, input, select {
+        margin: 0.5em;
+      }
+      input[type="submit"] {
+        margin-top: 1em;
+      }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a class="active" href="#">Edit User Details</a>
+    </div>
+    <h1>Edit User Details</h1>
+
+    {% if request.method == 'POST' %}
+<form action="/edit" method="post" enctype="multipart/form-data">
+    <label for="open_file">Choose XML File:</label>
+    <input type="file" name="open_file" accept=".xml" required>
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="{{ user['name'] if user else '' }}" required>
+    <label for="surname">Surname:</label>
+    <input type="text" name="surname" value="{{ user['surname'] if user else '' }}" required>
+    <label for="age">Age:</label>
+    <input type="number" name="age" value="{{ user['age'] if user else '' }}" required>
+    <label for="gender">Gender:</label>
+    <select name="gender" required>
+        <option value="male" {% if user and user['gender'] == 'male' %}selected{% endif %}>Male</option>
+        <option value="female" {% if user and user['gender'] == 'female' %}selected{% endif %}>Female</option>
+    </select>
+    <label for="occupation">Occupation:</label>
+    <input type="text" name="occupation" value="{{ user['occupation'] if user else '' }}" required>
+    <input type="submit" value="Save Changes">
+</form>
+{% else %}
+<p>Choose an XML file to edit:</p>
+<form method="POST" enctype="multipart/form-data">
+  <label for="open_file">File:</label>
+  <input type="file" id="open_file" name="open_file" onchange="document.getElementById('filename').value = this.value.split('\\').pop().split('/').pop();"><br>
+  <label for="filename">Filename:</label>
+  <input type="text" id="filename" name="filename" required><br>
+  <input type="submit" value="Open">
+</form>
+<p>Available XML files:</p>
+<ul>
+    {% for xml_file in xml_files %}
+    <li>{{ xml_file }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    
+    <a href="/">Go Back</a>
+</body>
+</html>

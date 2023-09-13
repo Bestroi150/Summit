@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Data</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f2f2f2;
+        color: #333333;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      input[type="file"] {
+        margin-bottom: 20px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        float: right;
+      }
+        button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        float: right;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      /* Navbar */
+      .navbar {
+        background-color: #333333;
+        overflow: hidden;
+        font-size: 18px;
+      }
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      .active {
+        background-color: #4CAF50;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label, input, select {
+        margin: 0.5em;
+      }
+      input[type="submit"] {
+        margin-top: 1em;
+      }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a class="active" href="#">Edit XML Data</a>
+    </div>
+     <h1>Edit XML Data</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="open_file">Choose an XML File to Edit:</label>
+        <input type="file" name="open_file" accept=".xml">
+        <input type="submit" value="Open">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ user.name if user else '' }}">
+
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" value="{{ user.surname if user else '' }}">
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" value="{{ user.age if user else '' }}">
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="">--Please select--</option>
+            <option value="Male" {% if user.gender == 'Male' %}selected{% endif %}>Male</option>
+            <option value="Female" {% if user.gender == 'Female' %}selected{% endif %}>Female</option>
+            <option value="Other" {% if user.gender == 'Other' %}selected{% endif %}>Other</option>
+        </select>
+      
+        <!--<input type="submit" value="Save Changes">-->
+    </form>
+    <form method="POST" action="/save">
+        <input type="hidden" name="name" value="{{ user.name if user else '' }}">
+        <input type="hidden" name="surname" value="{{ user.surname if user else '' }}">
+        <input type="hidden" name="age" value="{{ user.age if user else '' }}">
+        <input type="hidden" name="gender" value="{{ user.gender if user else '' }}">
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

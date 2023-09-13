@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open File</title>
+    <style>
+      /* Navigation bar styles */
+      .navbar {
+        background-color: #333;
+        overflow: hidden;
+      }
+      .navbar a {
+        float: left;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+      .navbar a:hover {
+        background-color: #ddd;
+        color: whitesmoke;
+      }
+      .active {
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      /* Form styles */
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f2f2f2;
+        color: #333333;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      input[type="text"], select, input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        float: right;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      .field-wrapper {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      .field-name {
+        width: 30%;
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 20px;
+        align-self: center;
+      }
+      .field-value {
+        flex-grow: 1;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/">New Form</a>
+      <a class="active" href="/open">Open Form</a>
+    </div>
+    <h1>Open Form</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <label for="file">File:</label>
+      <input type="file" id="file" name="file" onchange="document.getElementById('filename').value = this.value.split('\\').pop().split('/').pop();"><br>
+      <label for="filename">Filename:</label>
+      <input type="text" id="filename" name="filename" required><br>
+      <input type="submit" value="Open">
+    </form>
+    {% if content %}
+      <h2>{{ filename }}</h2>
+      <pre>{{ content }}</pre>
+    {% endif %}
+    <h2>Available Files</h2>
+    <ul>
+      {% for file in files %}
+        <li><a href="/{{ file }}">{{ file }}</a></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

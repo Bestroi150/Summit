@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Select XML File</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a class="active" href="#">Select XML File</a>
+    </div>
+    <h1>Select XML File</h1>
+    <form action="/edit" method="post">
+        <label for="xml_file">Choose an XML File:</label>
+        <select name="xml_file" required>
+            {% for file in user_data_files %}
+                <option value="{{ file }}">{{ file }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Edit Selected File">
+    </form>
+</body>
+</html>
