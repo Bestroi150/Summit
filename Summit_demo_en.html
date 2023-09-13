@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Form Submission</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Roboto", sans-serif;
+        }
+
+        .w3-sidebar {
+            z-index: 3;
+            width: 250px;
+            top: 43px;
+            bottom: 0;
+            height: inherit;
+        }
+
+        .add-field-button {
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .save-xml-button,
+        .download-xml-button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            float: left;
+        }
+
+        input[type="text"],
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            float: right;
+        }
+
+        .save-xml-button {
+            margin-right: 10px;
+        }
+
+        .input-wrapper {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .switch>span {
+            position: absolute;
+            top: 12px;
+            pointer-events: none;
+            font-family: "Roboto", sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+            width: 50%;
+            text-align: center;
+        }
+
+        input.check-toggle-round-flat:checked~.off {
+            color: #000;
+        }
+
+        input.check-toggle-round-flat:checked~.on {
+            color: #fff;
+        }
+
+        .switch>span.on {
+            left: 0;
+            padding-left: 2px;
+            color: #000;
+        }
+
+        .switch>span.off {
+            right: 0;
+            padding-right: 2px;
+            color: #fff;
+        }
+
+        .check-toggle {
+            position: absolute;
+            margin-left: -9999px;
+            visibility: hidden;
+        }
+
+        .check-toggle+label {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        input.check-toggle-round-flat+label {
+            padding: 2px;
+            width: 97px;
+            height: 35px;
+            background-color: #000;
+            -webkit-border-radius: 60px;
+            -moz-border-radius: 60px;
+            -ms-border-radius: 60px;
+            -o-border-radius: 60px;
+            border-radius: 60px;
+        }
+
+        input.check-toggle-round-flat+label:before,
+        input.check-toggle-round-flat+label:after {
+            display: block;
+            position: absolute;
+            content: "";
+        }
+
+        input.check-toggle-round-flat+label:before {
+            top: 2px;
+            left: 2px;
+            bottom: 2px;
+            right: 2px;
+            background-color: #000;
+            -webkit-border-radius: 60px;
+            -moz-border-radius: 60px;
+            -ms-border-radius: 60px;
+            -o-border-radius: 60px;
+            border-radius: 60px;
+        }
+
+        input.check-toggle-round-flat+label:after {
+            top: 4px;
+            left: 4px;
+            bottom: 4px;
+            width: 48px;
+            background-color: #fff;
+            -webkit-border-radius: 52px;
+            -moz-border-radius: 52px;
+            -ms-border-radius: 52px;
+            -o-border-radius: 52px;
+            border-radius: 52px;
+            -webkit-transition: margin 0.2s;
+            -moz-transition: margin 0.2s;
+            -o-transition: margin 0.2s;
+            transition: margin 0.2s;
+        }
+
+        input.check-toggle-round-flat:checked+label {}
+
+        input.check-toggle-round-flat:checked+label:after {
+            margin-left: 44px;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-theme-l1">Homepage</a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Instructions</a>
+
+            <div style="text-align: right;">
+                <div class="switch">
+                    <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox">
+                    <label for="language-toggle"></label>
+                    <span class="off">BG</span>
+                    <span class="on">EN</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
+  </a>
+        <h4 class="w3-bar-item"><b>Links</b></h4>
+        <a class="w3-bar-item w3-button w3-hover-black" href="#">Pleiades</a>
+        <a class="w3-bar-item w3-button w3-hover-black" href="#">GeoNames</a>
+        <a class="w3-bar-item w3-button w3-hover-black" href="#">VIAF</a>
+        <a class="w3-bar-item w3-button w3-hover-black" href="#">EKATTE</a>
+    </nav>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+    <div class="w3-main" style="margin-left: 250px">
+        <div class="w3-row w3-padding-64">
+            <div class="w3-row w3-padding-64">
+                <div class="w3-twothird w3-container" style="display: inline-block; vertical-align: top; width: 70%;">
+                    <h1 class="w3-text-teal">XML annotation tool</h1>
+                    <p>This study is financed by the European Union-NextGenerationEU, through the National Recovery and Resilience Plan of the Republic of Bulgaria, project No BG-RRP-2.004-0008</p>
+                </div>
+                <div class="image-container">
+                    <img src="logo.png" alt="logo" style="width: 450px;">
+                </div>
+
+                <div class="w3-row w3-padding-64" style="clear: both; margin-top: 100px;">
+                    <div class="w3-twothird w3-container">
+                        <form method="POST" action="/submit" class="form">
+                            <div class="form-group">
+                                <label for="filename" class="form-label">Filename:</label>
+                                <input type="text" id="filename" name="filename" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="form-label">Author (team member):</label>
+                                <input type="text" id="name" name="name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="surname" class="form-label">Name of the site/ object (according to the source)</label>
+                                <input type="text" id="surname" name="surname" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="age" class="form-label">Name of the site/ object (contemporary):</label>
+                                <input type="text" id="age" name="age" class="form-input" required>
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Description of the site/object (form, dimensions, etc.):</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="surname" class="form-label">PROVENANCE – Origin:</label>
+                                    <input type="text" id="surname" name="surname" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <p><b>Geographic Coordinates:</b></p><br/>
+                                    <div class="input-wrapper">
+                                        <label for="longitude" class="form-label">long:</label>
+                                        <input type="text" id="longitude" name="longitude" class="form-input" required>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="latitude" class="form-label">lat:</label>
+                                        <input type="text" id="latitude" name="latitude" class="form-input" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">GEONAMES</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="form-label">PLEIADES</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Date (dd.mm.yyyy/ period):</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Dating criteria:</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">PROVENANCE – Observed in:</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <p><b>Geographic Coordinates:</b></p><br/>
+                                    <div class="input-wrapper">
+                                        <label for="longitude" class="form-label">long</label>
+                                        <input type="text" id="longitude" name="longitude" class="form-input" required>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="latitude" class="form-label">lat:</label>
+                                        <input type="text" id="latitude" name="latitude" class="form-input" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">GEONAMES</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">PLEIADES</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Date (dd.mm.yyyy/ period):</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Dating Criteria:</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">PROVENANCE – Other Locations:</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <p><b>Geographic Coordinates:</b></p><br/>
+                                    <div class="input-wrapper">
+                                        <label for="longitude" class="form-label">long</label>
+                                        <input type="text" id="longitude" name="longitude" class="form-input" required>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="latitude" class="form-label">lat:</label>
+                                        <input type="text" id="latitude" name="latitude" class="form-input" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">GEONAMES</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Date (dd.mm.yyyy/ period):</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Dating Criteria:</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Current Location:</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <p><b>Geographic Coordinates:</b></p><br/>
+                                    <div class="input-wrapper">
+                                        <label for="longitude" class="form-label">long</label>
+                                        <input type="text" id="longitude" name="longitude" class="form-input" required>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="latitude" class="form-label">lat:</label>
+                                        <input type="text" id="latitude" name="latitude" class="form-input" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">GEONAMES</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">PLEIADES</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="gender" class="form-label">Category:</label>
+                                    <select id="gender" name="gender" class="form-select" required>
+								  <option value="">--Please select--</option>
+								  <option value="Male">Ръкопис</option>
+								  <option value="Female">Културен обект</option>
+								  <option value="Other">Комуникация</option>
+								  <option value="Male">Укрепително съоръжение</option>
+								  <option value="Female">Античен паметник</option>
+								  <option value="Other">Други</option>
+								</select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Start and End Dates of the Information:</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Original Language of the Source:</label>
+                                    <select id="xml:lang" name="xml:lang" class="form-select" required>
+							<option value="">--Моля изберете от списъка--</option>
+							<option value="Male">Арабски</option>
+							<option value="Female">Босненски</option>
+							<option value="Other">Български</option>
+							<option value="Male">Новогръцки</option>
+							<option value="Female">Испански</option>
+							<option value="Other">Италиански</option>
+							<option value="Male">Латински</option>
+							<option value="Female">Немски</option>
+							<option value="Other">Османотурски</option>
+							<option value="Male">Персийски</option>
+							<option value="Female">Полски</option>
+							<option value="Other">Румънски</option>
+							<option value="Other">Руски</option>
+							<option value="Male">Сръбски</option>
+							<option value="Female">Старогръцки</option>
+							<option value="Other">Турски</option>
+							<option value="Male">Френски</option>
+							<option value="Female">Хърватски</option>
+							<option value="Other">Църковнославянски</option>
+						  </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Language of the Publication:</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Bibliographic/ Archival Information of the Source:</label>
+                                    <input type="text" id="age" name="age" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Annotation:</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="keywords" class="form-label">Key Words:</label>
+                                    <input type="text" id="keywords" name="keywords" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="content" class="form-label">Source Content:</label>
+                                    <input type="text" id="content" name="content" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="copyright" class="form-label">Copyright/ storage place of the source (if known):</label>
+                                    <input type="text" id="copyright" name="copyright" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="viaf" class="form-label">VIAF</label>
+                                    <input type="text" id="viaf" name="viaf" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="iiif" class="form-label">IIIF</label>
+                                    <input type="text" id="iiif" name="iiif" class="form-input" required>
+                                </div>
+
+
+                                <form>
+                                    <button type="button" class="download-xml-button" onclick="window.location.href='/download/'+document.getElementById('filename').value">Download XML</button>
+                                    <button type="submit" class="save-xml-button">Save to XML</button>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="w3-center w3-padding-32">
+                    <div class="w3-bar">
+                        <p></p>
+                    </div>
+                </div>
+
+
+
+                <footer id="myFooter">
+                    <div class="w3-container w3-theme-l2 w3-padding-32">
+                        <h4>© All rights reserved</h4>
+                        <p>Project SUMMIT</p>
+                    </div>
+
+                    <div class="w3-container w3-theme-l6">
+                        <p>
+                            
+                <img src="EU next Gen Eng.png" alt="Logo 1" style="width: 200px;">           
+                          
+                <img src="National Plan Eng.png" alt="Logo 2" style="width: 200px;">
+            
+                            <!-- Add more logos here -->
+                        </p>
+                    </div>
+                </footer>
+
+                <script>
+                    // Get the Sidebar
+                    var mySidebar = document.getElementById("mySidebar");
+
+                    // Get the DIV with overlay effect
+                    var overlayBg = document.getElementById("myOverlay");
+
+                    // Toggle between showing and hiding the sidebar, and add overlay effect
+                    function w3_open() {
+                        if (mySidebar.style.display === 'block') {
+                            mySidebar.style.display = 'none';
+                            overlayBg.style.display = "none";
+                        } else {
+                            mySidebar.style.display = 'block';
+                            overlayBg.style.display = "block";
+                        }
+                    }
+
+                    // Close the sidebar with the close button
+                    function w3_close() {
+                        mySidebar.style.display = "none";
+                        overlayBg.style.display = "none";
+                    }
+
+                    // Function to add extra field
+                    function addField() {
+                        var wrapper = document.getElementById("extra-fields");
+                        var fieldWrapper = document.createElement("div");
+                        fieldWrapper.classList.add("field-wrapper");
+                        fieldWrapper.innerHTML = `
+        <input type="text" class="field-name form-input" name="field_name[]" placeholder="Field name">
+        <input type="text" class="field-value form-input" name="field_value[]" placeholder="Field value">
+      `;
+                        wrapper.appendChild(fieldWrapper);
+                    }
+                    document.addEventListener("DOMContentLoaded", function () {
+                        function redirectToEnglish() {
+                            // Code to redirect to the English version of the website
+                            window.location.href = "Summit_demo.html";
+                            console.log("Redirecting to English...");
+                        }
+
+                        function redirectToSpanish() {
+                            // Code to redirect to the Spanish version of the website
+                            window.location.href = "s.html";
+                            console.log("Redirecting to Spanish...");
+                        }
+
+                        var switchContainer = document.querySelector(".switch");
+
+                        switchContainer.addEventListener("click", function (event) {
+                            var target = event.target;
+                            if (target.classList.contains("on")) {
+                                redirectToEnglish();
+                            } else if (target.classList.contains("off")) {
+                                redirectToSpanish();
+                            }
+                        });
+                    });
+                </script>
+
+</body>
+
+</html>
