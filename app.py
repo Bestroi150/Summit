@@ -151,7 +151,18 @@ def save():
 
     except Exception as e:
         return str(e)
+        
+def parse_xml(xml_content):
+    root = ET.fromstring(xml_content)
 
+    user = {       
+        'name': root.find('name').text,
+        'surname': root.find('surname').text,
+        'age': root.find('age').text,
+        'gender': root.find('gender').text,
+    }
+
+    return user
 
 @app.route('/view', methods=['GET', 'POST'])
 def indexes():
