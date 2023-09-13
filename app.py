@@ -96,67 +96,61 @@ def open_file():
 
 
 
-@app.route('/edit/<filename>', methods=['GET', 'POST'])
-
-def edit(filename):
+@app.route('/edit', methods=['GET', 'POST'])
+def edit():
     try:
-        filepath = os.path.join('.', f"{filename}.xml")
-        tree = ET.parse(filepath)
-        root = tree.getroot()
-
         if request.method == 'POST':
-            # Update form data
-            name = request.form['name']
-            surname = request.form['surname']
-            age = request.form['age']
-            gender = request.form['gender']
+            # Check if an XML file is provided for opening
+            open_file = request.files.get('open_file')
+            if open_file:
+                # Read and decode the XML content
+                xml_content = open_file.read().decode('utf-8')  # Change 'utf-8' to the actual encoding
+                user = parse_xml(xml_content)
+                return render_template('edit.html', user=user)
 
-            # Update XML element
-            user_elem = root.find('user')
-            name_elem = user_elem.find('name')
-            name_elem.text = name
-            surname_elem = user_elem.find('surname')
-            surname_elem.text = surname
-            age_elem = user_elem.find('age')
-            age_elem.text = age
-            gender_elem = user_elem.find('gender')
-            gender_elem.text = gender
-
-            # Update extra fields in XML element
-            extra_fields_elems = user_elem.findall('field')
-            for field_elem in extra_fields_elems:
-                field_name_elem = field_elem.find('name')
-                field_name = field_name_elem.text
-                field_value_elem = field_elem.find('value')
-                field_value = request.form.get(field_name)
-                if field_value:
-                    field_value_elem.text = field_value
-
-            tree.write(filepath)
-
-            return 'Data updated successfully'
-
-        else:
-            # Get form data from XML element
-            name = root.find('user/name').text
-            surname = root.find('user/surname').text
-            age = root.find('user/age').text
-            gender = root.find('user/gender').text
-
-            # Get extra fields from XML element
-            extra_fields = []
-            extra_fields_elems = root.findall('user/field')
-            for field_elem in extra_fields_elems:
-                field_name = field_elem.find('name').text
-                field_value = field_elem.find('value').text
-                extra_fields.append((field_name, field_value))
-
-            return render_template('edit.html', filename=filename, name=name, surname=surname, age=age, gender=gender, extra_fields=extra_fields)
+        # If no XML file is uploaded, display a blank form
+        return render_template('edit.html', user={})
 
     except Exception as e:
-        print(e)
-        return 'Error: Could not edit data'
+        return str(e)
 
+
+@app.route('/save', methods=['POST'])
+def save():
+    try:
+        # Retrieve the edited user data from the form
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        age = request.form.get('age')
+        gender = request.form.get('gender')
+
+        # Create an XML string with the updated user data
+        xml_data = f'''
+        <user>
+            <name>{name}</name>
+            <surname>{surname}</surname>
+            <age>{age}</age>
+            <gender>{gender}</gender>
+        </user>
+        '''
+
+        # Construct the filename based on user input and add 'edited' to the filename
+        filename = f"{name}_edited_v1.xml"  # Initial version number
+        version = 1
+
+        while os.path.isfile(filename):
+            version += 1
+            filename = f"{name}_edited_v{version}.xml"
+
+        # Save edited file to the 'updates' folder
+        update_filepath = os.path.join(UPDATE_FOLDER, filename)
+        with open(update_filepath, 'w', encoding='utf-8') as file:
+            file.write(xml_data)
+
+        return render_template('success.html')
+
+    except Exception as e:
+        return str(e)
 
 
 @app.route('/view', methods=['GET', 'POST'])
