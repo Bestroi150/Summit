@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+  <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <teiHeader>
+      <fileDesc>
+        <titleStmt>
+          <title xml:lang="en">KA_edited_v1.xml</title>
+          <author>
+            <persName>KA</persName>
+          </author>
+        </titleStmt>
+        <publicationStmt>
+          <publisher>SUMMIT</publisher>
+          <date>2024-04-24</date>
+          <availability>
+            <p>The copyright statement for the source text can be fooud at <ref>https://ia801600.us.archive.org/28/items/lettersworksofla01inmont/lettersworksofla01inmont.pdf</ref> IIIF can be found here: iiif, if available</p>
+          </availability>
+        </publicationStmt>
+        <sourceDesc>
+          <msDesc>
+            <msIdentifier>
+              <country>Bulgaria</country>
+            </msIdentifier>
+            <physDesc>
+              <objectDesc>
+                <supportDesc>
+                  <support>
+                    <p>
+                      <seg/>
+                    </p>
+                  </support>
+                </supportDesc>
+              </objectDesc>
+            </physDesc>
+            <history>
+              <origin> <!-- произход не според текста -->
+                <origPlace>
+                  <seg/>
+                </origPlace>
+                <origDate cert="high">01/04/1717</origDate>
+              </origin>
+              <!--Observed-->
+              <provenance type="observed" subtype="pleiades">
+                <date evidence="-">-</date>
+                <ref cert="high">-</ref>
+                <placeName>-</placeName>
+            </provenance>
+            <provenance type="observed" subtype="geonames">
+                <ref>-</ref>
+            </provenance>
+              <!--Found-->
+              <provenance type="found" subtype="geonames">
+                <date evidence="-">-</date>
+                <ref>-</ref>
+                <placeName>-</placeName>
+            </provenance>
+              <!--Current-->
+              <provenance type="found" subtype="geonames">
+                <date evidence="-">-</date>
+                <ref>-</ref>
+                <placeName>-</placeName>
+            </provenance>
+          </history>
+          </msDesc>
+        </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+        <classDecl>
+          <taxonomy>
+            <category xml:id="periods-contemporary">
+              <catDesc>
+               iron_age
+              </catDesc>
+            </category>
+            <category xml:id="periods-source">
+              <catDesc>
+                -
+              </catDesc>
+            </category>
+            <category xml:id="object-type">
+              <catDesc>
+                {'linear': ['gate']}
+              </catDesc>
+            </category>
+           </taxonomy>
+        </classDecl>
+      </encodingDesc>
+      <profileDesc>
+        <textClass>
+        <keywords>
+          <list>
+            <item>Траянови врата, арка, лейди Мери Монтагю</item>
+          </list>
+        </keywords>
+        </textClass>
+      </profileDesc>
+      <revisionDesc>
+        <change when="2024-03-01" who="KA">encoder KA</change>
+        <change when="2024-04-24" who="KS">Kristiyan Simeonov, encoded XML data</change>
+        <change when="2024-04-24" who="DI">Dimitar Iliev, provided full schema revision</change>
+      </revisionDesc>
+    </teiHeader>
+    <text>
+      <body>
+        <div type="textpart" xml:lang="None"> <ab></ab></div> <!-- xml:lang тук е за оригиналния език -->
+        <div type="edition" xml:lang="None"></div>
+        <div type="translation" xml:lang="bg">
+          <p>
+            <seg xml:lang="None">We passed near the piece of an arch, which
+is commonly called Trajan's Gate, as supposing he made it to
+shut up the passage over the mountains between Sophia and
+Philipopolis. But I rather believe it the remains of some
+triumphal arch (though I could not see any inscription); for if
+that passage had been shut up, there are many others that
+-would serve for the march of an army; and, notwithstanding
+the story of Baldwin Earl of Flanders being overthrown in
+these straits, after he won Constantinople, I don't fancy the
+Germans would find themselves stopped by them.
+
+</seg>
+          </p>
+        </div>
+        <div type="commentary" subtype="general">
+         <ab> The text is written between <date type="initial">12.02.1717</date> and <date type="final">01.04.1717</date>.
+           The name of the monument is <name type="source">Trajan's Gate</name> or <name type="contemporary">Траянови врата</name>. According to the text, it is It is located <location>
+            <geo>42.3561; 23.9183</geo> <geo>https://www.geonames.org/maps/wikipedia_42.3561_23.9183.html</geo>
+         </location>. <!-- произход според текста -->Now it is located here: <location type="original"><geo>-;-</geo> <geo>-</geo></location>, in <name type="current" xml:lang="None">-</name>.
+         The internal date in the document is <date>01/04/1717</date>.
+        We have evidence that the object was obseved in <location type="subsequent1"><geo>-; -</geo> </location>.
+        The object has been seen in <location type="subsequent2"><geo>-; -</geo> </location>  </ab>
+        </div>
+         <div type="commentary" subtype="additional">
+            <p>
+              <seg> През зимата на 1717 г. (февруари – април 1717 г.) лейди Мери преминава по Диагоналния път от Белград до Одрин (Белград-Ниш-София-Пловдив-Одрин), като описва арка без надписи, която била популярна с името „Траянови врата“. Според статия на П. Мутафчиев структурата е изчезнала през ХІХ в. (да се даде библиографско описание)  Съществува изображение на арката от граф Луиджи Марсили.</seg>
+            </p>
+          </div>
+          <div type="bibliography">
+            <bibl>
+                <author>
+                  <persName>Mary Wortley Montagu</persName>
+                </author>
+                <seg>Mary Wortley Montagu, The Letters and Works of Lady Mary Wortley Montagu, ed. James Archibald Stuart-Wortley-Mackenzie Wharncliffe and William Moy Thomas, vol. 1 (London: Henry G. Bohn, York Street, Covent Garden, 1861), p. 291</seg>
+          <ref target="viaf">viaf</ref>
+            </bibl>
+          </div>
+      </body>
+    </text>
+</TEI>
+    
