@@ -1,0 +1,114 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="siteObject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="author"/>
+        <xs:element type="xs:string" name="nameSource"/>
+        <xs:element type="xs:string" name="nameContemporary"/>
+        <xs:element type="xs:string" name="description"/>
+        <xs:element type="xs:string" name="provenanceOrigin"/>
+        <xs:element name="geographicCoordinates">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:float" name="latitude"/>
+              <xs:element type="xs:float" name="longitude"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="geonamesLink"/>
+        <xs:element type="xs:string" name="pleiadesLink"/>
+        <xs:element type="xs:string" name="date"/>
+        <xs:element type="xs:string" name="datingCriteria"/>
+        <xs:element type="xs:string" name="localizationSource"/>
+        <xs:element type="xs:string" name="localizationCertainity"/>
+        <xs:element type="xs:string" name="age"/>
+        <xs:element type="xs:string" name="provenanceObservedIn"/>
+        <xs:element name="geographicCoordinatesObserved">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="latitudeObserved"/>
+              <xs:element type="xs:string" name="longitudeObserved"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="geonamesLinkObserved"/>
+        <xs:element type="xs:string" name="pleiadesLinkObserved"/>
+        <xs:element type="xs:string" name="dateObserved"/>
+        <xs:element type="xs:string" name="datingCriteriaObserved"/>
+        <xs:element type="xs:string" name="provenanceOtherLocations"/>
+        <xs:element name="geographicCoordinatesOther">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="latitudeOther"/>
+              <xs:element type="xs:string" name="longitudeOther"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="geonamesLinkOtherLocations"/>
+        <xs:element type="xs:string" name="dateOtherLocations"/>
+        <xs:element type="xs:string" name="datingCriteriaOtherLocations"/>
+        <xs:element type="xs:string" name="currentLocation"/>
+        <xs:element name="geographicCoordinatesCurrent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="latitudeCurrent"/>
+              <xs:element type="xs:string" name="longitudeCurrent"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="geonamesLinkCurrent"/>
+        <xs:element type="xs:string" name="pleiadesLinkCurrent"/>
+        <xs:element name="desc" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="list">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="item"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="type" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="type" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="informationDates">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="startDate"/>
+              <xs:element type="xs:string" name="endDate"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="authorPublication"/>
+        <xs:element type="xs:string" name="ageContemporary"/>
+        <xs:element name="originalLanguage">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute ref="xml:lang"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="publicationLanguage">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute ref="xml:lang"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="sourceInformation"/>
+        <xs:element type="xs:string" name="annotation"/>
+        <xs:element type="xs:string" name="keywords"/>
+        <xs:element type="xs:string" name="sourceContent"/>
+        <xs:element type="xs:string" name="copyrightStoragePlace"/>
+        <xs:element type="xs:string" name="viaf"/>
+        <xs:element type="xs:string" name="iiif"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
